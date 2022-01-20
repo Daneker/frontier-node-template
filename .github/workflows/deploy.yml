@@ -56,29 +56,10 @@ jobs:
       run: rustup target list --installed
 
     - name: Build optimized binary for benchmarking
-      run: cargo build --release --verbose --features runtime-benchmarks
+      run: cargo build --release --features runtime-benchmarks
 
     - uses: actions/upload-artifact@master
       with:
         name: frontier-runtime-benchmarks
         path: target/release/frontier-template-node
         retention-days: 1
-
-  try-runtime:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: hecrj/setup-rust-action@v1
-      with:
-        rust-version: ${{ env.RUST_VERSION }}
-        targets: 'wasm32-unknown-unknown'
-
-    - name: Checkout the source code
-      uses: actions/checkout@master
-      with:
-        submodules: true
-
-    - name: Check targets are installed correctly
-      run: rustup target list --installed
-
-    - name: Check try-runtime compilation
-      run: cargo check --verbose --features try-runtime

@@ -22,24 +22,6 @@ jobs:
         cargo +$WASM_BUILD_TOOLCHAIN --version
         rustc +$WASM_BUILD_TOOLCHAIN --version
       env:
-        WASM_BUILD_TOOLCHAIN: nightly-2021-07-06
+        WASM_BUILD_TOOLCHAIN: nightly-2021-11-01
     - name: Run tests
-      run: cargo test --locked --verbose --all
-  lint:
-    name: 'Run lints'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Submodules
-      run: git submodule update --init --recursive
-    - name: Init
-      run: |
-        scripts/init.sh
-        cargo --version
-        rustc --version
-        cargo +$WASM_BUILD_TOOLCHAIN --version
-        rustc +$WASM_BUILD_TOOLCHAIN --version
-      env:
-        WASM_BUILD_TOOLCHAIN: nightly-2021-07-06
-    - name: Rustfmt
-      run: cargo fmt --all -- --check
+      run: cargo test --locked --all
